@@ -1,7 +1,7 @@
 import { describe, it, expect } from "vitest";
 import { simpleSqlName } from "../src/simpleSqlName.js";
 
-describe("simpleSqlName", () => {
+describe("invalid simpleSqlName", () => {
     it("throws error on null", () => {
         expect(() => simpleSqlName(null)).toThrowError(/not be null/);
     });
@@ -23,6 +23,9 @@ describe("simpleSqlName", () => {
     it("throws error on space", () => {
         expect(() => simpleSqlName('ab cd')).toThrowError(/Invalid/);
     });
+});
+
+describe("valid simpleSqlName", () => {
     it.each([
         ['"An id"', '"An id"'],
         [" a0123456789 ", "a0123456789"],
@@ -30,7 +33,7 @@ describe("simpleSqlName", () => {
         ["c_", "c_"],
         ["d#", "d#"],
         ["e$", "e$"],
-        ["Lückenbüßer", "Lückenbüßer"]
+        ["äöüéàß", "äöüéàß"]
     ])("should accept '%s' and return '%s'", (id, expected) => {
         const actual = simpleSqlName(id);
         expect(actual).toEqual(expected);
