@@ -1,6 +1,5 @@
 {
   "compilerOptions": {
-    // Visit https://aka.ms/tsconfig to read more about this file
     "rootDir": "./src",
     "target": "ES2015",
     "module": "ES2022",
