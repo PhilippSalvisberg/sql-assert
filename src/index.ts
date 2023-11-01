@@ -1,3 +1,3 @@
-import { simpleSqlName } from './simpleSqlName.js';
+import { simpleSqlName } from "./simpleSqlName.js";
 
 export { simpleSqlName };

@@ -18,10 +18,10 @@ describe("invalid simpleSqlName", () => {
         expect(() => simpleSqlName('"Some " value"')).toThrowError(/quotes/);
     });
     it("throws error on number", () => {
-        expect(() => simpleSqlName('1')).toThrowError(/Invalid/);
+        expect(() => simpleSqlName("1")).toThrowError(/Invalid/);
     });
     it("throws error on space", () => {
-        expect(() => simpleSqlName('ab cd')).toThrowError(/Invalid/);
+        expect(() => simpleSqlName("ab cd")).toThrowError(/Invalid/);
     });
 });
 
