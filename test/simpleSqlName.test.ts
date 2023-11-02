@@ -21,6 +21,9 @@ describe("invalid simpleSqlName", () => {
     it("throws error on null", () => {
         expect(() => simpleSqlName(null)).toThrowError(/not be null/);
     });
+    it("throws error on undefined", () => {
+        expect(() => simpleSqlName(undefined)).toThrowError(/not be null/);
+    });
     it("throws error on empty", () => {
         expect(() => simpleSqlName("")).toThrowError(/not be empty/);
     });
@@ -34,10 +37,10 @@ describe("invalid simpleSqlName", () => {
         expect(() => simpleSqlName('"Some " value"')).toThrowError(/quotes/);
     });
     it("throws error on number", () => {
-        expect(() => simpleSqlName("1")).toThrowError(/Invalid/);
+        expect(() => simpleSqlName("1")).toThrowError(/invalid/i);
     });
     it("throws error on space", () => {
-        expect(() => simpleSqlName("ab cd")).toThrowError(/Invalid/);
+        expect(() => simpleSqlName("ab cd")).toThrowError(/invalid/i);
     });
 });
 
