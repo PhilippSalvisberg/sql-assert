@@ -5,7 +5,7 @@
 [![Build status][build-image]][build-url]
 [![Build coverage][coverage-image]][coverage-url]
 
-Assert identifiers (e.g. table/view names) before using them SQL statements.
+Assert identifiers (e.g. table/view names) before using them in SQL statements.
 
 ## Installation
 
