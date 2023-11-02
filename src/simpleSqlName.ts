@@ -25,10 +25,10 @@
  *
  * @param str The string to be checked.
  * @returns The trimmed and valid sqlName.
- * @throws {Error} If the passed string is not a valid SQL name.
+ * @throws {Error} if the passed string is not a valid SQL name.
  */
-export const simpleSqlName = (str: string | null): string => {
-    if (str == null) {
+export const simpleSqlName = (str: string | null | undefined): string => {
+    if (str == null || str == undefined) {
         throw new Error("SQL name must not be null.");
     }
     const trimmed = str.trim();
