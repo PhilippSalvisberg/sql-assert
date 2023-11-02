@@ -10,7 +10,7 @@ Assert identifiers (e.g. table/view names) before using them SQL statements.
 ## Installation
 
 ```
-npm install sql-assert--save
+npm install sql-assert --save
 ```
 
 ## Usage
@@ -24,7 +24,8 @@ import { simpleSqlName, qualifiedSqlName, noop } from "sql-assert";
 const stmt1 = `select count(*) from ${simpleSqlName(tableName)}`;
 const stmt2 = `select count(*) from ${qualifiedSqlName(tableName)}`;
 
-// no operation, returns original value, allows SQL injection
+// no operation, returns original value
+// SQL injection is possible, e.g., if `tableName` is a function parameter
 const stmt3 = `select count(*) from ${noop(tableName)}`;
 ```
 
