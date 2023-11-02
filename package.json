@@ -14,7 +14,7 @@
         "tsc": "tsc --project tsconfig-esm.json && tsc --project tsconfig-cjs.json",
         "prepublishOnly": "npm run tsc",
         "lint": "eslint . --ext .ts",
-        "format": "prettier --write \"./**/*{.ts,.eslintrc,.prettierrc,.json}\"",
+        "format": "prettier --write './**/*{.ts,.eslintrc,.prettierrc,.json}'",
         "test": "vitest --dir ./test",
         "coverage": "vitest --dir ./test run --coverage"
     },
