@@ -15,5 +15,7 @@
  */
 
 import { simpleSqlName } from "./simpleSqlName.js";
+import { qualifiedSqlName } from "./qualifiedSqlName.js";
+import { noop } from "./noop.js";
 
-export { simpleSqlName };
+export { simpleSqlName, qualifiedSqlName, noop };
