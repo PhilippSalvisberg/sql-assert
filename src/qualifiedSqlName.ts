@@ -31,8 +31,7 @@ export const qualifiedSqlName = (str: string | null | undefined): string => {
         throw new Error("Qualified SQL name must not be null.");
     }
     const trimmed = str.trim();
-    const len = trimmed.length;
-    if (len == 0) {
+    if (trimmed == "") {
         throw new Error("Qualified SQL name must not be empty.");
     }
     let result = "";
