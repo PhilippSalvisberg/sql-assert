@@ -29,7 +29,7 @@ describe("standalone usage", () => {
         const stmt = `select count(*) from ${qualifiedSqlName(tableName)}`;
         expect(stmt).toEqual("select count(*) from s1.t1");
     });
-    it("qualifiedSqlName", () => {
+    it("noop", () => {
         const tableName = "t1 where sal > 5000";
         const stmt = `select count(*) from ${noop(tableName)}`;
         expect(stmt).toEqual("select count(*) from t1 where sal > 5000");
