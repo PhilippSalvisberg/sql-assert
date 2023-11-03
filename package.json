@@ -15,7 +15,7 @@
         "lib/"
     ],
     "scripts": {
-        "tsc": "tsc --project tsconfig-esm.json && tsc --project tsconfig-cjs.json",
+        "tsc": "tsc --declaration --project tsconfig-esm.json && tsc --declaration --project tsconfig-cjs.json",
         "prepublishOnly": "npm run tsc",
         "lint": "eslint . --ext .ts",
         "format": "prettier --write './**/*{.ts,.eslintrc,.prettierrc,.json}'",
