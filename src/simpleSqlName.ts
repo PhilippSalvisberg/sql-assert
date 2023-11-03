@@ -33,7 +33,7 @@ export const simpleSqlName = (str: string | null | undefined): string => {
     }
     const trimmed = str.trim();
     const len = trimmed.length;
-    if (len == 0) {
+    if (len == 0 || trimmed == '""') {
         throw new Error("SQL name must not be empty.");
     }
     if (trimmed.at(0) == '"') {
