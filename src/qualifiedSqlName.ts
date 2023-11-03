@@ -20,7 +20,7 @@ import { simpleSqlName } from "./simpleSqlName.js";
  * Check if a given string is a valid qualified SQL name.
  *
  * The syntax of a qualified sql name is:
- * simple_sql_name [. simple_qualifed_name]...] [@ simple_qualified_name [. simple_qualified_name]...]
+ * simple_sql_name [. simple_sql_name]...] [@ simple_sql_name [. simple_sql_name]...]
  *
  * @param str The string to be checked.
  * @returns The trimmed and valid qualified sqlName.
