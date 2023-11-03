@@ -27,6 +27,9 @@ describe("invalid simpleSqlName", () => {
     it("throws error on empty", () => {
         expect(() => simpleSqlName("")).toThrowError(/not be empty/);
     });
+    it("throws error on empty quoted", () => {
+        expect(() => simpleSqlName('""')).toThrowError(/not be empty/);
+    });
     it("throws error on NUL character", () => {
         expect(() => simpleSqlName(`"Before ${"\x00"} After"`)).toThrowError(/not contain a NUL/);
     });
