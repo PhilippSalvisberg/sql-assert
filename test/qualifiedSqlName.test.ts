@@ -27,6 +27,12 @@ describe("invalid qualifiedeSqlName", () => {
     it("throws error on empty", () => {
         expect(() => qualifiedSqlName("")).toThrowError(/not be empty/);
     });
+    it("throws error on empty quoted simpleSqlName", () => {
+        expect(() => qualifiedSqlName('""')).toThrowError(/not be empty/);
+    });
+    it("throws error on empty quoted qualifiedSqlName", () => {
+        expect(() => qualifiedSqlName('"".""')).toThrowError(/not be empty/);
+    });
     it("throws error on final delimiter", () => {
         expect(() => qualifiedSqlName("a.b . ")).toThrowError(/cannot end on delimiter '.'/);
     });
