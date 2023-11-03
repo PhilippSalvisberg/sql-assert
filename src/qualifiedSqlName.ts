@@ -38,15 +38,13 @@ export const qualifiedSqlName = (str: string | null | undefined): string => {
     let prevDelimiter = "";
     let commatCount = 0;
     for (const match of trimmed.matchAll(/(?<sqlname>"[^"]+"|[^.@\s]+)(?<delimiter>\s*[.@]\s*)?/g)) {
-        if (prevDelimiter != undefined) {
-            if (prevDelimiter == "@") {
-                commatCount++;
-                if (commatCount > 1) {
-                    throw new Error("Qualified SQL name must not contain multiple '@' characters.");
-                }
+        if (prevDelimiter == "@") {
+            commatCount++;
+            if (commatCount > 1) {
+                throw new Error("Qualified SQL name must not contain multiple '@' characters.");
             }
-            result += prevDelimiter;
         }
+        result += prevDelimiter;
         result += simpleSqlName(match.groups?.sqlname);
         prevDelimiter = match.groups?.delimiter == undefined ? "" : match.groups.delimiter.trim();
     }
