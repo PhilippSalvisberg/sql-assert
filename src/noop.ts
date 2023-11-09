@@ -23,9 +23,6 @@
  * @param str The string not to be asserted.
  * @returns The orginal string, converts null/undefined to an empty string.
  */
-export const noop = (str: string | null | undefined): string => {
-    if (str == null || str == undefined) {
-        return "";
-    }
+export const noop = (str: string): string => {
     return str;
 };

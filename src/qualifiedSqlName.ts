@@ -26,10 +26,7 @@ import { simpleSqlName } from "./simpleSqlName.js";
  * @returns The trimmed and valid qualified sqlName.
  * @throws {Error} if the passed string is not a valid qualified SQL name.
  */
-export const qualifiedSqlName = (str: string | null | undefined): string => {
-    if (str == null || str == undefined) {
-        throw new Error("Qualified SQL name must not be null.");
-    }
+export const qualifiedSqlName = (str: string): string => {
     const trimmed = str.trim();
     if (trimmed == "") {
         throw new Error("Qualified SQL name must not be empty.");
@@ -38,15 +35,17 @@ export const qualifiedSqlName = (str: string | null | undefined): string => {
     let prevDelimiter = "";
     let commatCount = 0;
     for (const match of trimmed.matchAll(/(?<sqlname>"[^"]+"|[^.@\s]+)(?<delimiter>\s*[.@]\s*)?/g)) {
-        if (prevDelimiter == "@") {
-            commatCount++;
-            if (commatCount > 1) {
-                throw new Error("Qualified SQL name must not contain multiple '@' characters.");
+        if (match.groups) {
+            if (prevDelimiter == "@") {
+                commatCount++;
+                if (commatCount > 1) {
+                    throw new Error("Qualified SQL name must not contain multiple '@' characters.");
+                }
             }
+            result += prevDelimiter;
+            result += simpleSqlName(match.groups.sqlname);
+            prevDelimiter = match.groups.delimiter == undefined ? "" : match.groups.delimiter.trim();
         }
-        result += prevDelimiter;
-        result += simpleSqlName(match.groups?.sqlname);
-        prevDelimiter = match.groups?.delimiter == undefined ? "" : match.groups.delimiter.trim();
     }
     if (prevDelimiter != "") {
         throw new Error(`Qualified SQL name cannot end on delimiter '${prevDelimiter}'.`);

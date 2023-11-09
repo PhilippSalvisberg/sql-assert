@@ -27,10 +27,7 @@
  * @returns The trimmed and valid sqlName.
  * @throws {Error} if the passed string is not a valid SQL name.
  */
-export const simpleSqlName = (str: string | null | undefined): string => {
-    if (str == null || str == undefined) {
-        throw new Error("SQL name must not be null.");
-    }
+export const simpleSqlName = (str: string): string => {
     const trimmed = str.trim();
     const len = trimmed.length;
     if (len == 0 || trimmed == '""') {
