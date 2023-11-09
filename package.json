@@ -5,13 +5,17 @@
         "access": "public"
     },
     "description": "Assert identifiers (e.g. table/view names) before using them in SQL statements.",
+    "type": "module",
+    "exports": {
+        "require": "./lib/cjs/index.js",
+        "import": "./lib/esm/index.js"
+    },
     "main": "./lib/cjs/index.js",
-    "module": "./lib/esm/index.js",
     "files": [
         "lib/"
     ],
     "scripts": {
-        "tsc": "tsc --project tsconfig-esm.json && tsc --project tsconfig-cjs.json",
+        "tsc": "tsc --declaration --project tsconfig-esm.json && tsc --declaration --project tsconfig-cjs.json",
         "prepublishOnly": "npm run tsc",
         "lint": "eslint . --ext .ts",
         "format": "prettier --write './**/*{.ts,.eslintrc,.prettierrc,.json}'",
