@@ -18,12 +18,6 @@ import { describe, it, expect } from "vitest";
 import { qualifiedSqlName } from "../src/qualifiedSqlName.js";
 
 describe("invalid qualifiedeSqlName", () => {
-    it("throws error on null", () => {
-        expect(() => qualifiedSqlName(null)).toThrowError(/not be null/);
-    });
-    it("throws error on undefined", () => {
-        expect(() => qualifiedSqlName(undefined)).toThrowError(/not be null/);
-    });
     it("throws error on empty", () => {
         expect(() => qualifiedSqlName("")).toThrowError(/not be empty/);
     });

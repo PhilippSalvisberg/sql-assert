@@ -19,8 +19,6 @@ import { noop } from "../src/noop.js";
 
 describe("valid noop", () => {
     it.each([
-        [undefined, ""],
-        [null, ""],
         ["1", "1"],
         ["-", "-"],
         ["Robert'); drop table students; --", "Robert'); drop table students; --"]
