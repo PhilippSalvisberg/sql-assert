@@ -17,41 +17,43 @@
 import { describe, it, expect } from "vitest";
 import { simpleSqlName } from "../src/simpleSqlName.js";
 
-describe("invalid simpleSqlName", () => {
-    it("should throw error on empty", () => {
-        expect(() => simpleSqlName("")).toThrowError(/not be empty/);
+describe("simpleSqlName", () => {
+    describe("invalid", () => {
+        it("should throw error on empty", () => {
+            expect(() => simpleSqlName("")).toThrowError(/not be empty/);
+        });
+        it("should throw error on empty quoted", () => {
+            expect(() => simpleSqlName('""')).toThrowError(/not be empty/);
+        });
+        it("should throw error on NUL character", () => {
+            expect(() => simpleSqlName(`"Before ${"\x00"} After"`)).toThrowError(/not contain a NUL/);
+        });
+        it("should throw error on missing second double quote", () => {
+            expect(() => simpleSqlName('"Some value')).toThrowError(/quotes/);
+        });
+        it("should throw error on three double quotes", () => {
+            expect(() => simpleSqlName('"Some " value"')).toThrowError(/quotes/);
+        });
+        it("should throw error on number", () => {
+            expect(() => simpleSqlName("1")).toThrowError(/invalid/i);
+        });
+        it("should throw error on space", () => {
+            expect(() => simpleSqlName("ab cd")).toThrowError(/invalid/i);
+        });
     });
-    it("should throw error on empty quoted", () => {
-        expect(() => simpleSqlName('""')).toThrowError(/not be empty/);
-    });
-    it("should throw error on NUL character", () => {
-        expect(() => simpleSqlName(`"Before ${"\x00"} After"`)).toThrowError(/not contain a NUL/);
-    });
-    it("should throw error on missing second double quote", () => {
-        expect(() => simpleSqlName('"Some value')).toThrowError(/quotes/);
-    });
-    it("should throw error on three double quotes", () => {
-        expect(() => simpleSqlName('"Some " value"')).toThrowError(/quotes/);
-    });
-    it("should throw error on number", () => {
-        expect(() => simpleSqlName("1")).toThrowError(/invalid/i);
-    });
-    it("should throw error on space", () => {
-        expect(() => simpleSqlName("ab cd")).toThrowError(/invalid/i);
-    });
-});
 
-describe("valid simpleSqlName", () => {
-    it.each([
-        ['"An id"', '"An id"'],
-        [" a0123456789 ", "a0123456789"],
-        ["\tb\t", "b"],
-        ["c_", "c_"],
-        ["d#", "d#"],
-        ["e$", "e$"],
-        ["äöüéàß", "äöüéàß"]
-    ])("should accept '%s' and return '%s'", (id, expected) => {
-        const actual = simpleSqlName(id);
-        expect(actual).toEqual(expected);
+    describe("valid", () => {
+        it.each([
+            ['"An id"', '"An id"'],
+            [" a0123456789 ", "a0123456789"],
+            ["\tb\t", "b"],
+            ["c_", "c_"],
+            ["d#", "d#"],
+            ["e$", "e$"],
+            ["äöüéàß", "äöüéàß"]
+        ])("should accept '%s' and return '%s'", (id, expected) => {
+            const actual = simpleSqlName(id);
+            expect(actual).toEqual(expected);
+        });
     });
 });

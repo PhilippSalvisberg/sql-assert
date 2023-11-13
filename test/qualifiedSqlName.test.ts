@@ -17,39 +17,41 @@
 import { describe, it, expect } from "vitest";
 import { qualifiedSqlName } from "../src/qualifiedSqlName.js";
 
-describe("invalid qualifiedeSqlName", () => {
-    it("should throw error on empty", () => {
-        expect(() => qualifiedSqlName("")).toThrowError(/not be empty/);
+describe("qualifiedeSqlName", () => {
+    describe("invalid", () => {
+        it("should throw error on empty", () => {
+            expect(() => qualifiedSqlName("")).toThrowError(/not be empty/);
+        });
+        it("should throw error on empty quoted simpleSqlName", () => {
+            expect(() => qualifiedSqlName('""')).toThrowError(/not be empty/);
+        });
+        it("should throw error on empty quoted qualifiedSqlName", () => {
+            expect(() => qualifiedSqlName('"".""')).toThrowError(/not be empty/);
+        });
+        it("should throw error on final delimiter", () => {
+            expect(() => qualifiedSqlName("a.b . ")).toThrowError(/cannot end on delimiter '.'/);
+        });
+        it("should throw error on multiple @ characters", () => {
+            expect(() => qualifiedSqlName("a.b@dblink1@dblink2")).toThrowError(/multiple '@' characters/);
+        });
+        it("should throw error on invalid SQL name", () => {
+            expect(() => qualifiedSqlName("1.2")).toThrowError(/invalid/i);
+        });
     });
-    it("should throw error on empty quoted simpleSqlName", () => {
-        expect(() => qualifiedSqlName('""')).toThrowError(/not be empty/);
-    });
-    it("should throw error on empty quoted qualifiedSqlName", () => {
-        expect(() => qualifiedSqlName('"".""')).toThrowError(/not be empty/);
-    });
-    it("should throw error on final delimiter", () => {
-        expect(() => qualifiedSqlName("a.b . ")).toThrowError(/cannot end on delimiter '.'/);
-    });
-    it("should throw error on multiple @ characters", () => {
-        expect(() => qualifiedSqlName("a.b@dblink1@dblink2")).toThrowError(/multiple '@' characters/);
-    });
-    it("should throw error on invalid SQL name", () => {
-        expect(() => qualifiedSqlName("1.2")).toThrowError(/invalid/i);
-    });
-});
 
-describe("valid qualifiedSqlName", () => {
-    it.each([
-        ["id", "id"],
-        [`"id"`, `"id"`],
-        ["a.b", "a.b"],
-        ["a . b . c", "a.b.c"],
-        ["a.b.c.d", "a.b.c.d"],
-        [`"a".b.c."d"`, `"a".b.c."d"`],
-        ["a@dblink", "a@dblink"],
-        ["a.b@dblink.world", "a.b@dblink.world"]
-    ])("should accept '%s' and return '%s'", (id, expected) => {
-        const actual = qualifiedSqlName(id);
-        expect(actual).toEqual(expected);
+    describe("valid", () => {
+        it.each([
+            ["id", "id"],
+            [`"id"`, `"id"`],
+            ["a.b", "a.b"],
+            ["a . b . c", "a.b.c"],
+            ["a.b.c.d", "a.b.c.d"],
+            [`"a".b.c."d"`, `"a".b.c."d"`],
+            ["a@dblink", "a@dblink"],
+            ["a.b@dblink.world", "a.b@dblink.world"]
+        ])("should accept '%s' and return '%s'", (id, expected) => {
+            const actual = qualifiedSqlName(id);
+            expect(actual).toEqual(expected);
+        });
     });
 });
