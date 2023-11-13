@@ -19,17 +19,17 @@ import sql, { raw } from "sql-template-tag";
 import { simpleSqlName, qualifiedSqlName, noop } from "../src/index.js";
 
 describe("standalone usage", () => {
-    it("simpleSqlName", () => {
+    it("should accept simpleSqlName", () => {
         const tableName = "t1";
         const stmt = `select count(*) from ${simpleSqlName(tableName)}`;
         expect(stmt).toEqual("select count(*) from t1");
     });
-    it("qualifiedSqlName", () => {
+    it("should accpet qualifiedSqlName", () => {
         const tableName = "s1.t1";
         const stmt = `select count(*) from ${qualifiedSqlName(tableName)}`;
         expect(stmt).toEqual("select count(*) from s1.t1");
     });
-    it("noop", () => {
+    it("should accept any string with noop", () => {
         const tableName = "t1 where sal > 5000";
         const stmt = `select count(*) from ${noop(tableName)}`;
         expect(stmt).toEqual("select count(*) from t1 where sal > 5000");
@@ -37,7 +37,7 @@ describe("standalone usage", () => {
 });
 
 describe("with sql-template-tag usage", () => {
-    it("one bind", () => {
+    it("should produce one bind parameter", () => {
         const tableName = "s1.t1";
         const columnName = "c1";
         const columnValue = "v1";
@@ -51,7 +51,7 @@ describe("with sql-template-tag usage", () => {
         );
         expect(query.values).toEqual([columnValue]);
     });
-    it("two binds", () => {
+    it("should procude two bind parameters", () => {
         const tableName = "s1.t1";
         const columnName = "c1";
         const columnValue1 = "v1";

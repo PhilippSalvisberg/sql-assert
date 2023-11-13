@@ -18,25 +18,25 @@ import { describe, it, expect } from "vitest";
 import { simpleSqlName } from "../src/simpleSqlName.js";
 
 describe("invalid simpleSqlName", () => {
-    it("throws error on empty", () => {
+    it("should throw error on empty", () => {
         expect(() => simpleSqlName("")).toThrowError(/not be empty/);
     });
-    it("throws error on empty quoted", () => {
+    it("should throw error on empty quoted", () => {
         expect(() => simpleSqlName('""')).toThrowError(/not be empty/);
     });
-    it("throws error on NUL character", () => {
+    it("should throw error on NUL character", () => {
         expect(() => simpleSqlName(`"Before ${"\x00"} After"`)).toThrowError(/not contain a NUL/);
     });
-    it("throws error on missing second double quote", () => {
+    it("should throw error on missing second double quote", () => {
         expect(() => simpleSqlName('"Some value')).toThrowError(/quotes/);
     });
-    it("throws error on three double quotes", () => {
+    it("should throw error on three double quotes", () => {
         expect(() => simpleSqlName('"Some " value"')).toThrowError(/quotes/);
     });
-    it("throws error on number", () => {
+    it("should throw error on number", () => {
         expect(() => simpleSqlName("1")).toThrowError(/invalid/i);
     });
-    it("throws error on space", () => {
+    it("should throw error on space", () => {
         expect(() => simpleSqlName("ab cd")).toThrowError(/invalid/i);
     });
 });

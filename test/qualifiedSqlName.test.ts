@@ -18,22 +18,22 @@ import { describe, it, expect } from "vitest";
 import { qualifiedSqlName } from "../src/qualifiedSqlName.js";
 
 describe("invalid qualifiedeSqlName", () => {
-    it("throws error on empty", () => {
+    it("should throw error on empty", () => {
         expect(() => qualifiedSqlName("")).toThrowError(/not be empty/);
     });
-    it("throws error on empty quoted simpleSqlName", () => {
+    it("should throw error on empty quoted simpleSqlName", () => {
         expect(() => qualifiedSqlName('""')).toThrowError(/not be empty/);
     });
-    it("throws error on empty quoted qualifiedSqlName", () => {
+    it("should throw error on empty quoted qualifiedSqlName", () => {
         expect(() => qualifiedSqlName('"".""')).toThrowError(/not be empty/);
     });
-    it("throws error on final delimiter", () => {
+    it("should throw error on final delimiter", () => {
         expect(() => qualifiedSqlName("a.b . ")).toThrowError(/cannot end on delimiter '.'/);
     });
-    it("throws error on multiple @ characters", () => {
+    it("should throw error on multiple @ characters", () => {
         expect(() => qualifiedSqlName("a.b@dblink1@dblink2")).toThrowError(/multiple '@' characters/);
     });
-    it("throws error on invalid SQL name", () => {
+    it("should throw error on invalid SQL name", () => {
         expect(() => qualifiedSqlName("1.2")).toThrowError(/invalid/i);
     });
 });
