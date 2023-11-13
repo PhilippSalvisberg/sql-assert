@@ -19,7 +19,7 @@
         "prepublishOnly": "npm run tsc",
         "lint": "eslint . --ext .ts",
         "format": "prettier --write './**/*{.ts,.eslintrc,.prettierrc,.json}'",
-        "test": "vitest --dir ./test",
+        "test": "vitest --reporter=verbose --dir ./test",
         "coverage": "vitest --dir ./test run --coverage"
     },
     "keywords": [
