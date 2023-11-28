@@ -45,10 +45,10 @@ describe("usage in template literal", () => {
             const query = sql`select count(*)
                 from ${raw(qualifiedSqlName(tableName))}
                 where ${raw(simpleSqlName(columnName))} = ${columnValue}`;
-            expect(query.sql).toEqual(
+            expect(query.statement).toEqual(
                 `select count(*)
                 from s1.t1
-                where c1 = ?`
+                where c1 = :1`
             );
             expect(query.values).toEqual([columnValue]);
         });
@@ -60,10 +60,10 @@ describe("usage in template literal", () => {
             const query = sql`select count(*)
                 from ${raw(qualifiedSqlName(tableName))}
                 where ${raw(simpleSqlName(columnName))} in (${columnValue1}, ${columnValue2})`;
-            expect(query.sql).toEqual(
+            expect(query.statement).toEqual(
                 `select count(*)
                 from s1.t1
-                where c1 in (?, ?)`
+                where c1 in (:1, :2)`
             );
             expect(query.values).toEqual([columnValue1, columnValue2]);
         });
